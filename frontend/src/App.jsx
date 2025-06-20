@@ -4,8 +4,7 @@ const posMap = {
   ADJ: 'Adjective',
   ADP: 'Adposition',
   ADV: 'Adverb',
-  AUX: 'Auxiliary',
-  CONJ: 'Conjunction',
+  AUX: 'Auxiliary Verb',
   CCONJ: 'Coordinating Conjunction',
   DET: 'Determiner',
   INTJ: 'Interjection',
@@ -21,23 +20,46 @@ const posMap = {
   X: 'Other',
 };
 
+
 const depMap = {
-  nsubj: 'nominal subject',
-  dobj: 'direct object',
-  iobj: 'indirect object',
-  pobj: 'prepositional object',
-  ROOT: 'root',
-  aux: 'auxiliary',
-  prep: 'preposition',
-  attr: 'attribute',
-  det: 'determiner',
-  advmod: 'adverbial modifier',
-  amod: 'adjectival modifier',
-  punct: 'punctuation',
-  ccomp: 'clausal complement',
-  xcomp: 'open clausal complement',
-  mark: 'marker',
-  // add more as needed
+  acomp: 'Adjectival Complement',
+  advcl: 'Adverbial Clause Modifier',
+  advmod: 'Adverbial Modifier',
+  agent: 'Agent in Passive Voice',
+  amod: 'Adjectival Modifier',
+  appos: 'Appositional Modifier',
+  attr: 'Attribute',
+  aux: 'Auxiliary',
+  auxpass: 'Passive Auxiliary',
+  cc: 'Coordinating Conjunction',
+  ccomp: 'Clausal Complement',
+  conj: 'Conjunct',
+  cop: 'Copula',
+  csubj: 'Clausal Subject',
+  csubjpass: 'Clausal Subject (Passive)',
+  dep: 'Unspecified Dependency',
+  det: 'Determiner',
+  dobj: 'Direct Object',
+  expl: 'Expletive',
+  intj: 'Interjection',
+  mark: 'Marker',
+  neg: 'Negation Modifier',
+  nmod: 'Nominal Modifier',
+  npadvmod: 'Noun Phrase Adverbial Modifier',
+  nsubj: 'Nominal Subject',
+  nsubjpass: 'Passive Nominal Subject',
+  nummod: 'Numeric Modifier',
+  obj: 'Object',
+  oprd: 'Object Predicate',
+  parataxis: 'Parataxis',
+  pobj: 'Prepositional Object',
+  poss: 'Possession Modifier',
+  prep: 'Prepositional Modifier',
+  prt: 'Particle',
+  punct: 'Punctuation',
+  relcl: 'Relative Clause Modifier',
+  ROOT: 'Root',
+  xcomp: 'Open Clausal Complement',
 };
 
 export default function App() {
@@ -92,7 +114,8 @@ export default function App() {
                 <span
                   key={idx}
                   // className="relative group cursor-help"
-                  className="relative group cursor-pointer"
+                  className="relative group cursor-pointer hover:bg-blue-100 px-1 rounded"
+                  // className="relative group cursor-text"
                   title={`${posMap[tok.pos] || tok.pos}, ${depMap[tok.dep] || tok.dep}`}
                 >
                   {tok.text}
@@ -102,18 +125,22 @@ export default function App() {
           </div>
 <p></p>
 
-          <table className="mt-2 w-full border border-collapse">
+          {/* <table className="mt-2 w-full border border-collapse"> */}
+          <table className="mt-2 table-auto border border-collapse">
             <thead>
               <tr>
-                <th title="The actual word or punctuation">Token</th>
-                <th title="Part of Speech (e.g. NOUN, VERB)">POS</th>
-                <th title="Syntactic role in sentence (e.g. subject)">Dependency</th>
-                <th title="The head (parent) word in the dependency tree">Head</th>
+                <th  className="w-[180px] text-left" title="The actual word or punctuation">Token</th>
+                {/* <th className="w-[80px] text-left">Token</th> */}
+                {/* <th  className="text-left" title="Part of Speech (e.g. NOUN, VERB)">POS</th> */}
+                <th  className="w-[180px] text-left" title="Part of Speech (e.g. NOUN, VERB)">POS</th>
+                {/* <th className="w-[120px] text-left">POS</th> */}
+                <th  className="w-[200px] text-left" title="Syntactic role in sentence (e.g. subject)">Dependency</th>
+                <th  className="w-[180px] text-left" title="The head (parent) word in the dependency tree">Head</th>
                 {showAdvanced && (
                   <>
-                    <th title="Dictionary base form">Lemma</th>
-                    <th title="Detailed POS tag (Penn Treebank)">Tag</th>
-                    <th title="Grammatical features (tense, number, etc.)">Morph</th>
+                    <th className="w-[180px] text-left" title="Dictionary base form">Lemma</th>
+                    <th className="w-[180px] text-left" title="Detailed POS tag (Penn Treebank)">Tag</th>
+                    <th className="w-[180px] text-left" title="Grammatical features (tense, number, etc.)">Morph</th>
                   </>
                 )}
               </tr>
@@ -122,8 +149,10 @@ export default function App() {
               {result.tokens.map((tok, idx) => (
                 <tr key={idx}>
                   <td>{tok.text}</td>
-                  <td>{tok.pos}</td>
-                  <td>{tok.dep}</td>
+                  {/* <td>{tok.pos}</td> */}
+                  <td>{posMap[tok.pos] || tok.pos}</td>
+                  {/* <td>{tok.dep}</td> */}
+                  <td>{depMap[tok.dep] || tok.dep}</td>
                   <td>{tok.head}</td>
                   {showAdvanced && (
                     <>
