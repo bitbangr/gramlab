@@ -1,5 +1,45 @@
 import React, { useState } from 'react';
 
+const posMap = {
+  ADJ: 'Adjective',
+  ADP: 'Adposition',
+  ADV: 'Adverb',
+  AUX: 'Auxiliary',
+  CONJ: 'Conjunction',
+  CCONJ: 'Coordinating Conjunction',
+  DET: 'Determiner',
+  INTJ: 'Interjection',
+  NOUN: 'Noun',
+  NUM: 'Numeral',
+  PART: 'Particle',
+  PRON: 'Pronoun',
+  PROPN: 'Proper Noun',
+  PUNCT: 'Punctuation',
+  SCONJ: 'Subordinating Conjunction',
+  SYM: 'Symbol',
+  VERB: 'Verb',
+  X: 'Other',
+};
+
+const depMap = {
+  nsubj: 'nominal subject',
+  dobj: 'direct object',
+  iobj: 'indirect object',
+  pobj: 'prepositional object',
+  ROOT: 'root',
+  aux: 'auxiliary',
+  prep: 'preposition',
+  attr: 'attribute',
+  det: 'determiner',
+  advmod: 'adverbial modifier',
+  amod: 'adjectival modifier',
+  punct: 'punctuation',
+  ccomp: 'clausal complement',
+  xcomp: 'open clausal complement',
+  mark: 'marker',
+  // add more as needed
+};
+
 export default function App() {
   const [text, setText] = useState('');
   const [result, setResult] = useState(null);
@@ -44,6 +84,23 @@ export default function App() {
           <p>
             <strong>Passive Voice:</strong> {result.passive_voice ? 'Yes' : 'No'}
           </p>
+
+          <div className="mt-4">
+            <h2 className="font-semibold mb-1">Results Overlay:</h2>
+            <div className="flex flex-wrap gap-1 text-lg">
+              {result.tokens.map((tok, idx) => (
+                <span
+                  key={idx}
+                  // className="relative group cursor-help"
+                  className="relative group cursor-pointer"
+                  title={`${posMap[tok.pos] || tok.pos}, ${depMap[tok.dep] || tok.dep}`}
+                >
+                  {tok.text}
+                </span>
+              ))}
+            </div>
+          </div>
+<p></p>
 
           <table className="mt-2 w-full border border-collapse">
             <thead>
