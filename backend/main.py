@@ -25,7 +25,10 @@ def analyze_text(data: TextRequest):
                 "text": tok.text,
                 "pos": tok.pos_,
                 "dep": tok.dep_,
-                "head": tok.head.text
+                "head": tok.head.text,
+                "lemma": tok.lemma_,
+                "tag": tok.tag_,
+                "morph": tok.morph.to_json()
             }
             for tok in doc
         ],
