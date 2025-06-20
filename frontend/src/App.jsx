@@ -1,3 +1,4 @@
+import React from 'react';  // ✅ Required for JSX
 
 import { useState } from 'react';
 
